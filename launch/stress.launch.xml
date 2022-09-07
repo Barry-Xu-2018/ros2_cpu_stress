@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<launch>
+
+  <arg name="mb" default="10"/>
+  <arg name="hz" default="10"/>
+  <arg name="multi_sub" default="false"/>
+  <arg name="best_effort" default="false"/>
+
+  <set_parameter name="best_effort" value="$(var best_effort)"/>
+
+  <node pkg="stress" exec="talker">
+      <param name="size_mb" value="$(var mb)"/>
+      <param name="hz" value="$(var hz)"/>
+  </node>
+
+  <node pkg="stress" name="listener0" exec="listener" output="screen"/>
+
+  <group if="$(var multi_sub)">
+    <node pkg="stress" name="listener1" exec="listener" output="screen"/>
+    <node pkg="stress" name="listener2" exec="listener" output="screen"/>
+    <node pkg="stress" name="listener3" exec="listener" output="screen"/>
+    <node pkg="stress" name="listener4" exec="listener" output="screen"/>
+    <node pkg="stress" name="listener5" exec="listener" output="screen"/>
+    <node pkg="stress" name="listener6" exec="listener" output="screen"/>
+    <node pkg="stress" name="listener7" exec="listener" output="screen"/>
+    <node pkg="stress" name="listener8" exec="listener" output="screen"/>
+    <node pkg="stress" name="listener9" exec="listener" output="screen"/>
+  </group>
+
+</launch>

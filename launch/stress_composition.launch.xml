@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<launch>
+
+  <arg name="mb" default="10"/>
+  <arg name="hz" default="10"/>
+  <arg name="best_effort" default="false"/>
+  <arg name="use_intra_process_comms" default="true"/>
+  <arg name="multi_sub" default="false"/>
+
+  <set_parameter name="best_effort" value="$(var best_effort)"/>
+
+  <node_container pkg="rclcpp_components" exec="component_container" name="container" namespace="">
+    <composable_node pkg="stress" plugin="StressPublisher" name="talker">
+      <param name="size_mb" value="$(var mb)"/>
+      <param name="hz" value="$(var hz)"/>
+      <extra_arg name="use_intra_process_comms" value="$(var use_intra_process_comms)"/>
+    </composable_node>
+    <composable_node pkg="stress" plugin="StressSubscriber" name="listener0">
+      <extra_arg name="use_intra_process_comms" value="$(var use_intra_process_comms)"/>
+    </composable_node>
+  </node_container>
+
+  <load_composable_node target="container" if="$(var multi_sub)">
+    <composable_node pkg="stress" plugin="StressSubscriber" name="listener1">
+      <extra_arg name="use_intra_process_comms" value="$(var use_intra_process_comms)"/>
+    </composable_node>
+    <composable_node pkg="stress" plugin="StressSubscriber" name="listener2">
+      <extra_arg name="use_intra_process_comms" value="$(var use_intra_process_comms)"/>
+    </composable_node>
+    <composable_node pkg="stress" plugin="StressSubscriber" name="listener3">
+      <extra_arg name="use_intra_process_comms" value="$(var use_intra_process_comms)"/>
+    </composable_node>
+    <composable_node pkg="stress" plugin="StressSubscriber" name="listener4">
+      <extra_arg name="use_intra_process_comms" value="$(var use_intra_process_comms)"/>
+    </composable_node>
+    <composable_node pkg="stress" plugin="StressSubscriber" name="listener5">
+      <extra_arg name="use_intra_process_comms" value="$(var use_intra_process_comms)"/>
+    </composable_node>
+    <composable_node pkg="stress" plugin="StressSubscriber" name="listener6">
+      <extra_arg name="use_intra_process_comms" value="$(var use_intra_process_comms)"/>
+    </composable_node>
+    <composable_node pkg="stress" plugin="StressSubscriber" name="listener7">
+      <extra_arg name="use_intra_process_comms" value="$(var use_intra_process_comms)"/>
+    </composable_node>
+    <composable_node pkg="stress" plugin="StressSubscriber" name="listener8">
+      <extra_arg name="use_intra_process_comms" value="$(var use_intra_process_comms)"/>
+    </composable_node>
+    <composable_node pkg="stress" plugin="StressSubscriber" name="listener9">
+      <extra_arg name="use_intra_process_comms" value="$(var use_intra_process_comms)"/>
+    </composable_node>
+  </load_composable_node>
+
+</launch>
